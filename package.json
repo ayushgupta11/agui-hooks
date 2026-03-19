@@ -1,6 +1,6 @@
 {
   "name": "agui-hooks",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Production-ready React hooks for the AG-UI (Agent-GUI) protocol — streaming AI agent state to frontends via SSE",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
