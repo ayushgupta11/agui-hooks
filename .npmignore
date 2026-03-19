@@ -1,0 +1,13 @@
+src/
+docs/
+__tests__/
+*.test.*
+*.spec.*
+jest.config.js
+jest.setup.ts
+rollup.config.js
+tsconfig*.json
+.eslintrc*
+.prettierrc*
+.gitignore
+CLAUDE.md

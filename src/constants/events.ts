@@ -1,0 +1,27 @@
+export const EventType = {
+  // Run lifecycle
+  RUN_STARTED: 'RUN_STARTED',
+  RUN_FINISHED: 'RUN_FINISHED',
+  RUN_ERROR: 'RUN_ERROR',
+  // Step lifecycle
+  STEP_STARTED: 'STEP_STARTED',
+  STEP_FINISHED: 'STEP_FINISHED',
+  // Text message streaming
+  TEXT_MESSAGE_START: 'TEXT_MESSAGE_START',
+  TEXT_MESSAGE_CONTENT: 'TEXT_MESSAGE_CONTENT',
+  TEXT_MESSAGE_END: 'TEXT_MESSAGE_END',
+  // Tool call streaming
+  TOOL_CALL_START: 'TOOL_CALL_START',
+  TOOL_CALL_ARGS: 'TOOL_CALL_ARGS',
+  TOOL_CALL_END: 'TOOL_CALL_END',
+  TOOL_CALL_RESULT: 'TOOL_CALL_RESULT',
+  // State management
+  STATE_SNAPSHOT: 'STATE_SNAPSHOT',
+  STATE_DELTA: 'STATE_DELTA',
+  MESSAGES_SNAPSHOT: 'MESSAGES_SNAPSHOT',
+  // Generic
+  RAW: 'RAW',
+  CUSTOM: 'CUSTOM',
+} as const;
+
+export type EventTypeName = typeof EventType[keyof typeof EventType];

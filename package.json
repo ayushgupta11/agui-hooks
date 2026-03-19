@@ -1,0 +1,80 @@
+{
+  "name": "agui-react",
+  "version": "0.1.0",
+  "description": "Production-ready React wrapper for the AG-UI (Agent-GUI) protocol — streaming AI agent state to frontends via SSE",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "rollup -c",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "jest --config jest.config.cjs --coverage",
+    "test:watch": "jest --config jest.config.cjs --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run clean && npm run build"
+  },
+  "keywords": [
+    "agui",
+    "ag-ui",
+    "agent-gui",
+    "react",
+    "ai",
+    "sse",
+    "streaming",
+    "llm",
+    "agent",
+    "typescript"
+  ],
+  "author": "Ayush Gupta",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ayushgupta11/agui-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ayushgupta11/agui-react/issues"
+  },
+  "homepage": "https://github.com/ayushgupta11/agui-react#readme",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "dependencies": {
+    "fast-json-patch": "^3.1.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "rollup": "^4.13.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "ts-jest": "^29.1.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.3"
+  }
+}
