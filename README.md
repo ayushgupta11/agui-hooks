@@ -29,34 +29,33 @@
 
 ## Architecture Diagram
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Your React App                           │
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │                    <AGUIProvider>                        │  │
-│  │  isConnected  isRunning  messages[]  agentState{}        │  │
-│  └──────────────────────────┬───────────────────────────────┘  │
-│                             │  useAGUI()                        │
-│  ┌──────────────────────────▼───────────────────────────────┐  │
-│  │   ChatUI  │  StatusBar  │  ToolCallLog  │  AgentDebug    │  │
-│  └──────────────────────────────────────────────────────────┘  │
-└──────────────────────────────┬──────────────────────────────────┘
-                               │ HTTP POST + SSE response
-                               │
-┌──────────────────────────────▼──────────────────────────────────┐
-│                    AG-UI Endpoint                                │
-│                  (LangGraph / CrewAI /                          │
-│                   custom Python/Node)                           │
-│                                                                 │
-│  Emits:                                                         │
-│  data: {"type":"RUN_STARTED","threadId":"t1","runId":"r1"}      │
-│  data: {"type":"TEXT_MESSAGE_START","messageId":"m1",...}       │
-│  data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"m1",...}     │
-│  data: {"type":"TOOL_CALL_START","toolCallId":"tc1",...}        │
-│  data: {"type":"STATE_DELTA","delta":[{"op":"add",...}]}        │
-│  data: {"type":"RUN_FINISHED","threadId":"t1","runId":"r1"}     │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph ReactApp["Your React App"]
+        Provider["&lt;AGUIProvider&gt;\nisConnected · isRunning · messages[] · agentState{}"]
+        Provider -- "useAGUI()" --> Components
+
+        subgraph Components["Consumer Components"]
+            direction LR
+            ChatUI["ChatUI"]
+            StatusBar["StatusBar"]
+            ToolCallLog["ToolCallLog"]
+            AgentDebug["AgentDebug"]
+        end
+    end
+
+    subgraph Endpoint["AG-UI Endpoint (LangGraph / CrewAI / custom Python·Node)"]
+        direction TB
+        E1["data: {type:'RUN_STARTED', threadId, runId}"]
+        E2["data: {type:'TEXT_MESSAGE_START', messageId, ...}"]
+        E3["data: {type:'TEXT_MESSAGE_CONTENT', messageId, delta}"]
+        E4["data: {type:'TOOL_CALL_START', toolCallId, ...}"]
+        E5["data: {type:'STATE_DELTA', delta:[{op:'add',...}]}"]
+        E6["data: {type:'RUN_FINISHED', threadId, runId}"]
+    end
+
+    ReactApp -- "HTTP POST (message + metadata)" --> Endpoint
+    Endpoint -- "SSE response stream" --> ReactApp
 ```
 
 ---
